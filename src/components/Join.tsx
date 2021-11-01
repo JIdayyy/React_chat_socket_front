@@ -23,7 +23,7 @@ import { useDispatch } from "react-redux";
 import { login } from "redux/actions";
 
 interface Props {}
-
+const URL = process.env.REACT_APP_API_URL;
 export default function Join({}: Props): ReactElement {
   const [name, setName] = useState<string>("");
   const [room, setRoom] = useState<string>("");
@@ -32,7 +32,7 @@ export default function Join({}: Props): ReactElement {
   const dispatch = useDispatch();
   const handleSubmit = async () => {
     await axios
-      .post("http://localhost:3000/api/login", {
+      .post(`${URL}/api/login`, {
         name,
         password,
       })

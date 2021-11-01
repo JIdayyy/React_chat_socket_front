@@ -21,7 +21,7 @@ import MessageCard from "./MessageCard";
 import { useSelector } from "react-redux";
 import { RootState } from "redux/reducers";
 
-const ENDPOINT = "https://3b44-83-193-194-131.ngrok.io";
+const ENDPOINT = process.env.REACT_APP_API_URL;
 
 const fakeMessages = [
   { message: "premier message", id: "1" },
