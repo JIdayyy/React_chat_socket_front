@@ -21,12 +21,13 @@ import MessageCard from "./MessageCard";
 import { useSelector } from "react-redux";
 import { RootState } from "redux/reducers";
 import { RouteComponentProps } from "react-router";
+import axios from "axios";
 
 const ENDPOINT = import.meta.env.VITE_API_URL;
 
 type Message = {
   user: string;
-  text: string;
+  content: string;
 };
 
 const fakeMessages = [
@@ -47,6 +48,15 @@ export default function Chat({
   const [message, setMessage] = useState<string>("");
   const [messages, setMessages] = useState<Message[]>([]);
   const user = useSelector((state: RootState) => state.user);
+  const getMessages = async () =>
+    await axios
+      .get(`${ENDPOINT}/api/messages/Test`)
+      .then((r) => r.data)
+      .then((r) => setMessages(r));
+
+  useEffect(() => {
+    getMessages();
+  }, []);
 
   useEffect(() => {
     const { name, room } = queryString.parse(location.search);
@@ -71,7 +81,7 @@ export default function Chat({
 
   const sendMessage = (event: any) => {
     event.preventDefault();
-
+    console.log(room);
     if (message) {
       socket.emit("sendMessage", { message, user, room }, () => setMessage(""));
     }

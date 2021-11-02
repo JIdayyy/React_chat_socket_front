@@ -7,27 +7,28 @@ interface Props {
   message: {
     message: string;
     id: string;
-    text: string;
+    content: string;
     user: string;
   };
 }
 
 export default function MessageCard({ message }: Props): ReactElement {
+  console.log(message);
   const user = useSelector((state: RootState) => state.user);
   return (
     <div>
       <Text
-        textAlign={message.user === user.name ? "right" : "left"}
+        textAlign={message.user.name === user.name ? "right" : "left"}
         p={2}
         textColor="white"
         fontSize="x-small"
         backgroundColor={
-          message.user === user.name ? "purple.default" : "green.500"
+          message.user.name === user.name ? "purple.default" : "green.500"
         }
         borderRadius="lg"
         my="2"
       >
-        {message.text}
+        {message.content}
       </Text>
     </div>
   );
