@@ -20,8 +20,14 @@ import { AiOutlineSend } from "react-icons/ai";
 import MessageCard from "./MessageCard";
 import { useSelector } from "react-redux";
 import { RootState } from "redux/reducers";
+import { RouteComponentProps } from "react-router";
 
-const ENDPOINT = process.env.REACT_APP_API_URL;
+const ENDPOINT = import.meta.env.VITE_API_URL;
+
+type Message = {
+  user: string;
+  text: string;
+};
 
 const fakeMessages = [
   { message: "premier message", id: "1" },
@@ -29,17 +35,22 @@ const fakeMessages = [
   { message: "troisieme message", id: "3" },
 ];
 
-const socket = io(ENDPOINT);
+const socket = io(ENDPOINT as string);
 
-export default function Chat({ location }): ReactElement {
+export default function Chat({
+  location,
+}: {
+  location: Location;
+}): ReactElement {
   const [name, setName] = useState<string | string[]>("");
   const [room, setRoom] = useState<string | string[]>("");
   const [message, setMessage] = useState<string>("");
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState<Message[]>([]);
   const user = useSelector((state: RootState) => state.user);
 
   useEffect(() => {
     const { name, room } = queryString.parse(location.search);
+    if (!name || !room) return;
     setName(name);
     setRoom(room);
 
@@ -52,7 +63,8 @@ export default function Chat({ location }): ReactElement {
   }, [location.search]);
 
   useEffect(() => {
-    socket.on("message", (message: any) => {
+    socket.on("message", (message: Message) => {
+      console.log(message);
       setMessages([...messages, message]);
     });
   }, [messages]);
@@ -61,7 +73,7 @@ export default function Chat({ location }): ReactElement {
     event.preventDefault();
 
     if (message) {
-      socket.emit("sendMessage", message, () => setMessage(""));
+      socket.emit("sendMessage", { message, user, room }, () => setMessage(""));
     }
   };
 

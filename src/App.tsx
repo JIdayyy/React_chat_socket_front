@@ -1,15 +1,15 @@
-import "styles/global.css";
+import React from "react";
+import "./styles/global.css";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { Provider } from "react-redux";
-import store from "redux/store";
+import store from "./redux/store";
 import { Switch, Route } from "react-router-dom";
 import { ChakraProvider } from "@chakra-ui/react";
 import { extendTheme } from "@chakra-ui/react";
 import "@fontsource/annie-use-your-telescope";
 import "@fontsource/roboto";
-
-import Join from "components/Join";
-import Chat from "components/Chat";
+import Join from "./components/Join";
+import Chat from "./components/Chat";
 
 const theme = extendTheme({
   fonts: {

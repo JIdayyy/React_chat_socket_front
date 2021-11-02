@@ -1,7 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Annie+Use+Your+Telescope&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url('https://fonts.googleapis.com/css2?family=Annie+Use+Your+Telescope&display=swap');
 
 .circle {
     background-image: radial-gradient(circle 50px at 50% 0, transparent 50px, #ffffff 50px);

@@ -2,7 +2,6 @@ import React, { ReactElement, useState } from "react";
 import { Link as RouterLink, useHistory } from "react-router-dom";
 import bg from "../images/SignUp_Mobile.jpg";
 import profile_icon from "../images/profile_icon.png";
-
 import {
   Input,
   Stack,
@@ -15,15 +14,16 @@ import {
   Box,
   Text,
 } from "@chakra-ui/react";
-
 import { BsFillChatLeftDotsFill } from "react-icons/bs";
 import { AiOutlineUser } from "react-icons/ai";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { login } from "redux/actions";
+import { login } from "../redux/slices/user/index";
 
 interface Props {}
-const URL = process.env.REACT_APP_API_URL;
+
+const URL = import.meta.env.VITE_API_URL;
+
 export default function Join({}: Props): ReactElement {
   const [name, setName] = useState<string>("");
   const [room, setRoom] = useState<string>("");

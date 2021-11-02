@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
 
-import user from "redux/slices/user";
+import user from "./slices/user/index";
 
 const rootReducer = combineReducers({ user });
 
